@@ -45,75 +45,37 @@ cd examples/replace_anything/
 pip install -r requirements.txt
 ```
 
-
-## Sample of Result on UBC-fashion dataset
+## 🏃🏼 Training
 ### Stage 1
-The current version of the face still has some artifacts.  This model is trained on the UBC dataset rather than a large-scale dataset.
-<table class="center">
-    <tr><td><img src="./assets/stage1/1.png"></td><td><img src="./assets/stage1/2.png"></td></tr>
-    <tr><td><img src="./assets/stage1/3.png"></td><td><img src="./assets/stage1/8.png"></td></tr>
-    <tr><td><img src="./assets/stage1/9.png"></td><td><img src="./assets/stage1/10.png"></td></tr>
-    <tr><td><img src="./assets/stage1/4.png"></td><td><img src="./assets/stage1/5.png"></td></tr>
-    <tr><td><img src="./assets/stage1/6.png"></td><td><img src="./assets/stage1/7.png"></td></tr>
+Stage 1 involves fine-tuning a basic Stable Diffusion U-Net to enhance its character generation capabilities and aesthetics. You can use existing models on [Civitai](https://civitai.com/models/4201?modelVersionId=501240) instead of training from scratch. You can train Stage 1 with:
+```
+cd examples/replace_anything/
+bash train_stage_1.sh
+```
+You can replace the pretrained SD checkpoints with your own in `train_stage_1.sh` and modify the data path.
 
-</table>
-<p style="margin-left: 2em; margin-top: -1em"></p>
 
 ### Stage 2
-The training of stage2 is challenging due to artifacts in the background. We select one of our best results here, and are still working on it. An important point is to ensure that training and inference resolution is consistent.
-<table class="center">
-    <tr><td><img src="./assets/stage2/1.gif"></td></tr>
+Stage 2 involves training two conditional branches to control the base model trained in Stage 1. Note that you will need paired data (image, text, pose, canny, object) for this training. You can train Stage 2 with:
+```
+cd examples/replace_anything/
+bash train_stage_2.sh
+```
 
-</table>
-<p style="margin-left: 2em; margin-top: -1em"></p>
+
 
 ## ToDo
 - [x] **Release Training Code.**
-- [x] **Release Inference Code.** 
+- [ ] **Release Inference Code.** 
 - [ ] **Release Unofficial Pre-trained Weights.**
-- [x] **Release Gradio Demo.**
+- [ ] **Release Gradio Demo.**
 
-## Requirements
 
-```bash
-bash fast_env.sh
-```
-
-## 🎬Gradio Demo
-```python
-python3 -m demo.gradio_animate
-```
-For a 13-second pose video, processing at 256 resolution requires 11G VRAM, and at 512 resolution, it requires 23.5G VRAM.
-
-## Training
-### Original AnimateAnyone Architecture (It is difficult to control pose when training on a small dataset.)
-#### First Stage
-
-```python
-torchrun --nnodes=8 --nproc_per_node=8 train.py --config configs/training/train_stage_1.yaml
-```
-
-#### Second Stage
-
-```python
-torchrun --nnodes=8 --nproc_per_node=8 train.py --config configs/training/train_stage_2.yaml
-```
-
-### Our Method (A more dense pose control scheme, the number of parameters is still small.) (Highly recommended)
-```python
-torchrun --nnodes=8 --nproc_per_node=8 train_hack.py --config configs/training/train_stage_1.yaml
-```
-
-#### Second Stage
-
-```python
-torchrun --nnodes=8 --nproc_per_node=8 train_hack.py --config configs/training/train_stage_2.yaml
-```
 
 
 ## Acknowledgements
-Special thanks to the original authors of the [Animate Anyone](https://humanaigc.github.io/animate-anyone/) project and the contributors to the [magic-animate](https://github.com/magic-research/magic-animate/tree/main) and [AnimateDiff](https://github.com/guoyww/AnimateDiff) repository for their open research and foundational work that inspired this unofficial implementation.
+Special thanks to the original authors of the [ReplaceAnything](https://aigcdesigngroup.github.io/replace-anything/) project and the for their foundational work that inspired this unofficial implementation.
 
 ## Email
 
-For academic or business cooperation only: guoqin@stu.pku.edu.cn
+If you have any questions, do not hesitate to contact: yuedongxu@stu.pku.edu.cn
