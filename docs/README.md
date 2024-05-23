@@ -5,7 +5,6 @@ If you find this repository helpful, please consider giving us a star⭐!
 We only train on a toy datasets for debug, and it is difficult to achieve official results under the condition of insufficient data scale and quality. Because of the consideration of time and cost, we do not intend to collect and filter a large number of high-quality data. If someone has a robust model trained on a large amount of high-quality data and is willing to share it, make a pull request.
 
 **If anyone is willing to provide high-quality data, do not hesitate to contact me.**
-https://github.com/TencentARC/BrushNet
 ## Overview
 This repository contains an simple and unofficial implementation of [ReplaceAnything]([https://humanaigc.github.io/animate-anyone/](https://aigcdesigngroup.github.io/replace-anything/)). This project is built upon [Diffusers](https://github.com/huggingface/diffusers) and [BrushNet](https://github.com/TencentARC/BrushNet). This implementation is developed by [Dongxu Yue](https://github.com/dongxuyue).
 
